@@ -1,0 +1,132 @@
+{
+  "hétfő": [
+    {
+      "ora": 1,
+      "tantargy": "Nyelvtan"
+    },
+    {
+      "ora": 2,
+      "tantargy": "Matek"
+    },
+    {
+      "ora": 3,
+      "tantargy": "Töri"
+    },
+    {
+      "ora": 4,
+      "tantargy": "Matek"
+    },
+    {
+      "ora": 5,
+      "tantargy": "Tesi"
+    },
+    {
+      "ora": 6,
+      "tantargy": "Js"
+    }
+  ],
+  "kedd": [
+    {
+      "ora": 1,
+      "tantargy": "Történelem"
+    },
+    {
+      "ora": 2,
+      "tantargy": "Német"
+    },
+    {
+      "ora": 3,
+      "tantargy": "Angol"
+    },
+    {
+      "ora": 5,
+      "tantargy": "Matek"
+    },
+    {
+      "ora": 6,
+      "tantargy": "Irodalom"
+    },
+    {
+      "ora": 4,
+      "tantargy": "IKT"
+    },
+    {
+      "ora": 7,
+      "tantargy": "Matek"
+    }
+  ],
+  "szerda": [
+    {
+      "ora": 1,
+      "tantargy": "Webprogramozás"
+    },
+    {
+      "ora": 2,
+      "tantargy": "Matematika"
+    },
+    {
+      "ora": 3,
+      "tantargy": "Angol"
+    },
+    {
+      "ora": 4,
+      "tantargy": "Angol"
+    },
+    {
+      "ora": 5,
+      "tantargy": "Történelem"
+    }
+  ],
+  "csütörtök": [
+    {
+      "ora": 1,
+      "tantargy": "Történelem"
+    },
+    {
+      "ora": 2,
+      "tantargy": "Irodalom"
+    },
+    {
+      "ora": 3,
+      "tantargy": "Matek"
+    },
+    {
+      "ora": 4,
+      "tantargy": "Angol"
+    },
+    {
+      "ora": 5,
+      "tantargy": "Német"
+    },
+    {
+      "ora": 6,
+      "tantargy": "Angol"
+    }
+  ],
+  "péntek": [
+    {
+      "ora": 1,
+      "tantargy": "Történelem"
+    },
+    {
+      "ora": 2,
+      "tantargy": "PHP"
+    },
+    {
+      "ora": 3,
+      "tantargy": "Webprogramozás"
+    },
+    {
+      "ora": 4,
+      "tantargy": "Tesnevelés"
+    },
+    {
+      "ora": 5,
+      "tantargy": "Angol"
+    },
+    {
+      "ora": 6,
+      "tantargy": "IKT"
+    }
+  ]
+}
