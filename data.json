@@ -1,28 +1,28 @@
-{
+  {
   "hétfő": [
     {
       "ora": 1,
-      "tantargy": "Nyelvtan"
+      "tantargy": "Irodalom"
     },
     {
       "ora": 2,
-      "tantargy": "Matek"
+      "tantargy": "Matematika"
     },
     {
       "ora": 3,
-      "tantargy": "Töri"
+      "tantargy": "Történelem"
     },
     {
       "ora": 4,
-      "tantargy": "Matek"
+      "tantargy": "Angol"
     },
     {
       "ora": 5,
-      "tantargy": "Tesi"
+      "tantargy": "Testnevelés"
     },
     {
       "ora": 6,
-      "tantargy": "Js"
+      "tantargy": "Webprogramozás"
     }
   ],
   "kedd": [
@@ -32,7 +32,7 @@
     },
     {
       "ora": 2,
-      "tantargy": "Német"
+      "tantargy": "Angol"
     },
     {
       "ora": 3,
@@ -40,19 +40,19 @@
     },
     {
       "ora": 5,
-      "tantargy": "Matek"
+      "tantargy": "Matematika"
     },
     {
       "ora": 6,
-      "tantargy": "Irodalom"
+      "tantargy": "Nyelvtan"
     },
     {
       "ora": 4,
-      "tantargy": "IKT"
+      "tantargy": "Testnevelés"
     },
     {
       "ora": 7,
-      "tantargy": "Matek"
+      "tantargy": "Testnevelés"
     }
   ],
   "szerda": [
@@ -74,7 +74,7 @@
     },
     {
       "ora": 5,
-      "tantargy": "Történelem"
+      "tantargy": "Nyelvtan"
     }
   ],
   "csütörtök": [
@@ -88,7 +88,7 @@
     },
     {
       "ora": 3,
-      "tantargy": "Matek"
+      "tantargy": "Matematika"
     },
     {
       "ora": 4,
@@ -100,17 +100,17 @@
     },
     {
       "ora": 6,
-      "tantargy": "Angol"
+      "tantargy": "Webprogramozás"
     }
   ],
   "péntek": [
     {
       "ora": 1,
-      "tantargy": "Történelem"
+      "tantargy": "Állampolgári ism."
     },
     {
       "ora": 2,
-      "tantargy": "PHP"
+      "tantargy": "Asztali alkalmazás"
     },
     {
       "ora": 3,
@@ -118,7 +118,7 @@
     },
     {
       "ora": 4,
-      "tantargy": "Tesnevelés"
+      "tantargy": "Angol"
     },
     {
       "ora": 5,
@@ -126,7 +126,7 @@
     },
     {
       "ora": 6,
-      "tantargy": "IKT"
+      "tantargy": "Projektmunka"
     }
   ]
 }
