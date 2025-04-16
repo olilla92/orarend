@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Órarend</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; background: #9a70aa; }
-    .nap { margin-bottom: 30px; background: #f2ebf5; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    h2 { margin-top: 0; text-decoration: underline;}
-    h1 { text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;}
+    body { font-family: Arial, sans-serif; margin: 20px; background: #53dbd4; }
+    .nap { margin-bottom: 30px; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    h2 { margin-top: 0; }
+    h1 { text-align: center; font-style: italic; text-transform: uppercase;}
     .tantargy { display: flex; align-items: center; justify-content: space-between; margin: 8px 0; }
     input { margin-right: 10px; }
-    button { margin-left: 5px; border: 1px solid; color:#451e55; cursor: pointer;}
+    button { margin-left: 5px;}
   </style>
 </head>
 <body>
@@ -21,88 +21,110 @@
   <script>
     const API_URL = "http://localhost:3000/orarend";
 
-async function lekerOrarend() {
-  const res = await fetch(API_URL);
-  const data = await res.json();
-  megjelenitOrarend(data);
-}
-
-function megjelenitOrarend(adatok) {
-  const kontener = document.getElementById("orarend");
-  kontener.innerHTML = "";
-
-  for (const nap in adatok) {
-    const napDiv = document.createElement("div");
-    napDiv.className = "nap";
-
-    const cim = document.createElement("h2");
-    cim.textContent = nap.charAt(0).toUpperCase() + nap.slice(1);
-    napDiv.appendChild(cim);
-
-    const napAdatok = adatok[nap];
-
-    napAdatok.forEach(({ ora, tantargy }) => {
-      const sor = document.createElement("div");
-      sor.className = "tantargy";
-
-      const szoveg = document.createElement("span");
-      szoveg.textContent = `${ora}. óra: ${tantargy}`;
-
-      const torles = document.createElement("button");
-      torles.textContent = "Törlés";
-      torles.onclick = async () => {
-        await fetch(`${API_URL}/${nap}/${ora}`, { method: "DELETE" });
-        lekerOrarend();
+    function napCim(napSlug) {
+      const napok = {
+        hetfo: "Hétfő",
+        kedd: "Kedd",
+        szerda: "Szerda",
+        csutortok: "Csütörtök",
+        pentek: "Péntek"
       };
+      return napok[napSlug] || napSlug;
+    }
 
-      const szerkeszt = document.createElement("button");
-      szerkeszt.textContent = "Szerkesztés";
-      szerkeszt.onclick = async () => {
-        const ujNev = prompt("Új tantárgy neve:", tantargy);
-        if (ujNev) {
-          await fetch(`${API_URL}/${nap}/${ora}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ tantargy: ujNev })
-          });
-          lekerOrarend();
+    async function lekerOrarend() {
+      const res = await fetch(API_URL);
+      const adatok = await res.json();
+      const napokbaCsoportositas = {};
+
+      adatok.forEach(({ id, nap, ora, tantargy }) => {
+        if (!napokbaCsoportositas[nap]) {
+          napokbaCsoportositas[nap] = [];
         }
-      };
+        napokbaCsoportositas[nap].push({ id, ora, tantargy });
+      });
 
-      sor.append(szoveg, szerkeszt, torles);
-      napDiv.appendChild(sor);
-    });
+      megjelenitOrarend(napokbaCsoportositas);
+    }
 
-    const oraInput = document.createElement("input");
-    oraInput.placeholder = "Óraszám (pl. 6)";
-    oraInput.type = "number";
+    function megjelenitOrarend(adatok) {
+      const napokSorrendje = ["hetfo", "kedd", "szerda", "csutortok", "pentek"];
+      const kontener = document.getElementById("orarend");
+      kontener.innerHTML = "";
 
-    const tantargyInput = document.createElement("input");
-    tantargyInput.placeholder = "Tantárgy neve";
+      for (const nap of napokSorrendje) {
+        const napAdatok = adatok[nap];
+        if (!napAdatok) continue;
 
-    const hozzaad = document.createElement("button");
-    hozzaad.textContent = "Hozzáadás";
-    hozzaad.onclick = async () => {
-      const ora = parseInt(oraInput.value);
-      const tantargy = tantargyInput.value.trim();
-      if (ora && tantargy) {
-        await fetch(`${API_URL}/${nap}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ora, tantargy })
+        napAdatok.sort((a, b) => a.ora - b.ora);
+
+        const napDiv = document.createElement("div");
+        napDiv.className = "nap";
+
+        const cim = document.createElement("h2");
+        cim.textContent = napCim(nap);
+        napDiv.appendChild(cim);
+
+        napAdatok.forEach(({ id, ora, tantargy }) => {
+          const sor = document.createElement("div");
+          sor.className = "tantargy";
+
+          const szoveg = document.createElement("span");
+          szoveg.textContent = `${ora}. óra: ${tantargy}`;
+
+          const torles = document.createElement("button");
+          torles.textContent = "Törlés";
+          torles.onclick = async () => {
+            await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+            lekerOrarend();
+          };
+
+          const szerkeszt = document.createElement("button");
+          szerkeszt.textContent = "Szerkesztés";
+          szerkeszt.onclick = async () => {
+            const ujNev = prompt("Új tantárgy neve:", tantargy);
+            if (ujNev) {
+              await fetch(`${API_URL}/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nap, ora, tantargy: ujNev })
+              });
+              lekerOrarend();
+            }
+          };
+
+          sor.append(szoveg, szerkeszt, torles);
+          napDiv.appendChild(sor);
         });
-        lekerOrarend();
+
+        const oraInput = document.createElement("input");
+        oraInput.placeholder = "Óraszám";
+        oraInput.type = "number";
+
+        const tantargyInput = document.createElement("input");
+        tantargyInput.placeholder = "Tantárgy neve";
+
+        const hozzaad = document.createElement("button");
+        hozzaad.textContent = "Hozzáadás";
+        hozzaad.onclick = async () => {
+          const ora = parseInt(oraInput.value);
+          const tantargy = tantargyInput.value.trim();
+          if (ora && tantargy) {
+            await fetch(`${API_URL}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ nap, ora, tantargy })
+            });
+            lekerOrarend();
+          }
+        };
+
+        napDiv.append(oraInput, tantargyInput, hozzaad);
+        kontener.appendChild(napDiv);
       }
-    };
+    }
 
-    napDiv.append(oraInput, tantargyInput, hozzaad);
-    kontener.appendChild(napDiv);
-  }
-}
-
-lekerOrarend();
-
+    lekerOrarend();
   </script>
 </body>
 </html>
-
